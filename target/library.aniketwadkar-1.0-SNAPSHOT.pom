@@ -18,12 +18,22 @@
   </licenses>
 
   <distributionManagement>
+    <!--<snapshotRepository>-->
+      <!--<id>ossrh</id>-->
+      <!--<url>https://oss.sonatype.org/content/repositories/snapshots</url>-->
+    <!--</snapshotRepository>-->
+    <!--<repository>-->
+      <!--<id>ossrh</id>-->
+      <!--<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
+    <!--</repository>-->
     <snapshotRepository>
       <id>ossrh</id>
+      <name>Maven Central Snapshot Repository</name>
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
     <repository>
       <id>ossrh</id>
+      <name>Maven Central Staging Repository</name>
       <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
   </distributionManagement>
@@ -44,6 +54,18 @@
 
   <build>
     <plugins>
+      <!--adding here below can be removed -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <configuration>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <useReleaseProfile>false</useReleaseProfile>
+          <!-- references the profile defined just below -->
+          <releaseProfiles>release</releaseProfiles>
+          <goals>deploy</goals>
+        </configuration>
+      </plugin>
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-compiler-plugin</artifactId>
@@ -94,7 +116,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-gpg-plugin</artifactId>
-        <version>1.5</version>
+        <version>1.6</version>
         <executions>
           <execution>
             <id>sign-artifacts</id>
